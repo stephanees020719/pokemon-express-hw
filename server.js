@@ -1,56 +1,47 @@
-const express = require('express');	// Import the express library
-const app = express();	// Create an instance of the express application
-const PORT = process.env.PORT || 3000;	// Set the port number
-const pokemons = require('./models/pokemons');	// Import the pokemons module
+// Importing required modules
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
+const pokemons = require('./models/pokemons');
+const jsxViewEngine = require('jsx-view-engine');
 
+// Setting up view engine and views directory
+app.set('view engine', 'jsx');
+app.set('views', './views');
+app.engine('jsx', jsxViewEngine());
 
-const jsxViewEngine = require('jsx-view-engine');	// Import the jsx-view-engine library
+// Parsing request body
+app.use(express.urlencoded({ extended: false }));
 
-app.set('view engine', 'jsx');// Set the view engine to use JSX
-app.set('views', './views');	// Set the views directory
-app.engine('jsx', jsxViewEngine());// Set the engine to use jsxViewEngine
-
-
-// Index
+// Index route
 app.get('/pokemons', (req, res) => {
-console.log('New controller');
-res.render('pokemons/Index', { pokemons });
+  console.log('Index controller');
+  res.render('pokemons/Index', { pokemons });
 });
 
-// New
+// New route
 app.get('/pokemons/new', (req, res) => {
   console.log('New controller');
   res.render('pokemons/New');
 });
 
-// Delete
-
-// Update
-
-// Create
+// create route
 app.post('/pokemons', (req, res) => {
- pokemons.push(req.body);
-console.log(pokemons);
-
-  res.send('Pokemon Created');
+  // Adding new pokemon to the pokemons array
+  pokemons.push(req.body);
+  console.log(pokemons);
+  res.send('data received');
 });
 
-// Edit
-
-// Show
+// show route
 app.get('/pokemons/:id', (req, res) => {
-  //second param of the render method must be an object
   res.render('pokemons/Show', {
-    //there will be a variable available inside the jsx file called pokemon, its value is pokemons
+    // rendering the Show view with the pokemon data based on the provided id
     pokemon: pokemons[req.params.id],
   });
 });
 
-
-
-
-//app is listening
+// starting the server
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });
-
