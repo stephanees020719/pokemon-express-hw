@@ -28,7 +28,7 @@ const myStyle = {
                 return (
                   <li key={i}>
                     This is {' '}
-                      <a href={`/pokemons/${i}`}>
+                      <a href={`/pokemons/${pokemon._id}`}>
                         {capitalizedPokemonName}
                       </a>
                   </li>

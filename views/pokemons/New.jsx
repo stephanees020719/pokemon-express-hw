@@ -1,9 +1,13 @@
 const React = require('react');
 //add inline style 
 const myStyle = {
-  color: 'yellow',
+  color: 'black',
+  fontFamily: 'Arial, sans-serif',
+  fontSize: '16px',
+  lineHeight: '1.5',
   backgroundColor: 'red',
-  };
+
+};
 
 class New extends React.Component {
   render() {
